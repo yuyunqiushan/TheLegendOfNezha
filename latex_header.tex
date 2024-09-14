@@ -1,0 +1,98 @@
+\documentclass[12pt,a4paper,openany]{book}
+\usepackage{xeCJK} % 支持 CJK 字体，适合中文
+\usepackage{fontspec} % 支持自定义字体，如 Times New Roman
+\usepackage{geometry} % 用于调整页面边距
+\usepackage{titlesec} % 用于自定义章节和小节标题的格式
+\usepackage{fancyhdr} % 用于自定义页眉和页脚
+\usepackage{indentfirst} % 让每个章节的第一段也缩进
+\usepackage{tocloft} % 自定义目录样式
+
+% 设置页面边距为 2cm 顶部和底部，2.2cm 左右边距
+\geometry{
+  a4paper,
+  top=2cm,
+  bottom=2cm,
+  left=2.2cm,
+  right=2.2cm
+}
+
+% 设置 CJK 字体为仿宋（FangSong）
+\setCJKmainfont{FangSong}
+
+% 设置黑体字体（SimHei），用于小节标题
+\setCJKfamilyfont{heiti}{SimHei}  
+
+% 设置 Times New Roman 字体，专门用于所有数字
+\newfontface\timesfont{Times New Roman}
+
+% 调整页眉高度为 14.5pt，并相应减少顶部边距以保持页面布局一致
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+
+% 自定义章节标题格式，使用黑体，字号为 16pt，24pt 行距，居中显示，去掉默认的 "Chapter" 字样
+\titleformat{\chapter}
+  {\CJKfamily{heiti}\fontsize{16pt}{24pt}\selectfont\centering} % 黑体，16pt 字号，居中
+  {}
+  {0em}
+  {\thechapter\ } % 显示章节号
+
+% 自定义小节标题格式，使用黑体，四号字体（14pt 字号），设置为 block 格式，确保小节标题与正文分开
+\titleformat{\subsection}[block]
+  {\CJKfamily{heiti}\fontsize{14pt}{18pt}\selectfont} % 黑体，四号（14pt 字号，18pt 行距）
+  {}
+  {0em}
+  {}
+
+% 设置正文字体为仿宋，12pt 字号，18pt 行距
+\renewcommand{\CJKfontspec}{\CJKfamily{FangSong}\fontsize{12pt}{18pt}\selectfont}
+
+% 定义命令 \numfont，用于将传入的内容（如数字）显示为 Times New Roman 字体
+\newcommand{\numfont}[1]{{\timesfont#1}}
+
+% 页眉设置，显示章节标题（\leftmark）在中间，页脚显示页码在中间
+\pagestyle{fancy}
+\fancyhf{}  % 清除默认的页眉和页脚
+\fancyhead[C]{\leftmark}  % 页眉中间显示章节标题
+\fancyfoot[C]{\thepage}  % 页脚中间显示页码
+
+% 设置页眉和页脚的分隔线
+\renewcommand{\headrulewidth}{0.4pt}  % 页眉和正文之间的横线
+\renewcommand{\footrulewidth}{0pt}  % 页脚和正文之间不需要横线
+
+% 修改章节编号与标题的字体：
+% 章节编号使用 Times New Roman，标题使用仿宋
+\renewcommand{\cftchapfont}{\timesfont\selectfont\CJKfamily{FangSong}}
+\renewcommand{\cftchappagefont}{\timesfont} % 章节页码使用 Times New Roman 字体
+
+% 修改小节编号与标题的字体：
+% 小节编号使用 Times New Roman，标题使用仿宋
+\renewcommand{\cftsecfont}{\timesfont\selectfont\CJKfamily{FangSong}}
+\renewcommand{\cftsecpagefont}{\timesfont}  % 小节页码使用 Times New Roman 字体
+
+% 目录样式设置：在标题和页码之间使用点号
+\renewcommand{\cftchapdotsep}{\cftdotsep}   % 章节标题和页码之间使用点号
+\renewcommand{\cftsecdotsep}{\cftdotsep}    % 小节标题和页码之间使用点号
+
+% 设置目录项的缩进距离（可根据需要调整）
+\setlength{\cftchapindent}{0em}  % 章节标题无缩进
+\setlength{\cftsecindent}{2em}   % 小节标题缩进
+
+% 减少目录中章节和小节之间的间距
+\setlength{\cftbeforechapskip}{0pt} % 调整章节条目间距
+
+\setlength{\parindent}{2em} % 设置首行缩进为 2 个字符
+
+% 正文开始
+\begin{document}
+
+% 设置页码为罗马数字（用于目录）
+\pagenumbering{roman}
+
+% 生成目录
+\tableofcontents
+
+% 插入分页符
+\newpage
+
+% 切换为阿拉伯数字页码（用于正文）
+\pagenumbering{arabic}

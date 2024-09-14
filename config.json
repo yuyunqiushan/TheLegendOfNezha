@@ -1,0 +1,5 @@
+{
+    "input_file": "《哪吒传奇》文学剧本.txt",
+    "config_file": "latex_header.tex",
+    "compiler": "xelatex"
+}
